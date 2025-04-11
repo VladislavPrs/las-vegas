@@ -1,0 +1,441 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "liana";
+  src: url("../../fonts/liana.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Black Gold VP";
+  src: url("../../fonts/BlackGoldVPRegular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Russkopis";
+  src: url("../../fonts/Russkopis-Normalny.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+[class$=__background] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-color: #060002;
+  color: #ffffff;
+  font-family: "liana";
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+  width: 100%;
+}
+
+.invite {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.invite__background {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.invite__background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.invite__subtitle {
+  position: absolute;
+  top: 80px;
+  left: 50px;
+  font-size: 40px;
+  color: #8b001e;
+  max-width: 300px;
+}
+.invite__text {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  line-height: 1.6;
+  font-family: "Black Gold VP";
+}
+.invite__subtext {
+  font-size: 30px;
+}
+.invite__title {
+  font-family: "Liana";
+  font-size: 62px;
+}
+.invite__desctiption {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  font-family: "Black Gold VP";
+}
+
+/* --- Стили для блока invite --- */
+/* Исходные стили для invite__subtitle */
+.invite__subtitle {
+  opacity: 0;
+  transform: scale(1);
+  animation-fill-mode: forwards;
+}
+
+/* Стили для заголовка и описания в блоке invite */
+.invite__title,
+.invite__subtext {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.invite__desctiption {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.visible {
+  opacity: 1;
+}
+
+/* Анимация для invite__subtitle:
+- 2 сек: появляется и увеличивается до scale(1.2)
+- Следующие 2 сек: исчезает (opacity до 0)
+Общая длительность – 4 сек */
+.start-subtitle {
+  animation: subtitleAnim 5s forwards;
+}
+
+@keyframes subtitleAnim {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+/* Стили для видео (invite и основной) */
+.invite__confetti,
+.video__video {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.playing {
+  opacity: 1;
+}
+
+/* --- Стили для блока video --- */
+/* Изначально скрываем текстовые элементы видео */
+.video__desctiption,
+.video__title {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* Анимация pop-эффекта:
+Эти элементы появляются за 2 секунды (до максимального размера, например scale(1.5)),
+а затем за 1 секунду сжимаются обратно до исходного размера (scale(1)). */
+.pop {
+  animation: popScale 3s forwards;
+}
+
+@keyframes popScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  40% { /* через 2 секунды (примерно 66.67% от 3 сек) */
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Класс для появления и постоянного «подпрыгивания» стрелки */
+.arrow-show {
+  animation: arrowAppear 0.5s forwards, arrowBounce 2s infinite;
+}
+
+@keyframes arrowAppear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes arrowBounce {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -10px);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+.video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.video__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video__desctiption {
+  position: absolute;
+  top: 10%;
+  left: 35%;
+  font-size: 40px;
+  font-family: "Black Gold VP";
+}
+.video__title {
+  font-size: 63px;
+  text-shadow: 0px 0px 80px #000;
+}
+.video__arrow {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 80px;
+}
+.video__arrow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  text-shadow: 0px 0px 30px 2px #000;
+}
+
+.description {
+  height: 100vh;
+  position: relative;
+}
+.description__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.description__background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.description__content {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.description__text {
+  font-size: 45px;
+}
+.description__title {
+  font-size: 53px;
+  text-shadow: 0 0 30px #ffffff;
+}
+
+.date {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  color: #FCAE87;
+}
+.date__background {
+  position: static;
+}
+.date__background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.date__content {
+  position: absolute;
+  bottom: 17%;
+  left: 17%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0px 0px 30px #000;
+  font-family: "Black Gold VP";
+}
+.date__title {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 120px;
+  left: 100px;
+  text-align: center;
+  font-size: 55px;
+  font-family: "Russkopis";
+}
+.date__title span {
+  display: block;
+  height: 50px;
+  margin-bottom: 27px;
+  margin-right: 10px;
+}
+.date__city {
+  font-family: "Russkopis";
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.date__place {
+  grid-area: place;
+  font-size: 31px;
+  margin-bottom: 20px;
+}
+.date__street {
+  font-size: 25px;
+  grid-area: street;
+}
+
+.dresscode {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dresscode__content {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.dresscode__title {
+  align-self: start;
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-family: "Black Gold VP";
+}
+.dresscode__text {
+  align-self: flex-end;
+  font-size: 50px;
+}/*# sourceMappingURL=style.css.map */
